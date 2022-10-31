@@ -11,10 +11,12 @@
 
 <body>
     <div id="caja">
-        <h1 id="resultado"></h1>
+
         <a href="index.html" id="enlace"> Volver a la página de inicio</a>
     </div>
-    <script src="result_registro.js"></script>
+    <script>
+        alert("<?php echo $_SESSION["Creada"]; ?>");
+    </script>
 </body>
 
 </html>
