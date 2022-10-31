@@ -13,9 +13,9 @@ try {
         $consulta = $conn->query("SELECT usuario FROM usuario WHERE usuario = $nombre");
         if($conn->exec($consulta) == 0){
         $conn->query("INSERT INTO usuarios(...) VALUES ($nombre, $pass)");
-        header("Location: index.html");
+        header("Location: info.html");
         }else{
-        header("Location: index.html");
+        header("Location: info.html");
         }
     }
 
