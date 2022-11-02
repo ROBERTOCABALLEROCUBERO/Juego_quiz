@@ -1,39 +1,42 @@
 <?php
-$servername = "localhost";
-$username = "username";
-$password = "password";
+$servername = "10.230.108.82";
+$username = "root";
+$password = "ASECg1PYysBg";
 
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=myDB", $username, $password);
+    $conn = new PDO("mysql:host=$servername;dbname=Quiz", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $nombre = $_POST["nombre"];
+    $name = $_POST["nombre"];
     $pass = $_POST["pass"];
     session_start();
-    if ($_POST['Registro'] === true) {
-        $consulta = $conn->query("SELECT usuario FROM usuario WHERE usuario = $nombre");
-        if ($conn->exec($consulta) == 0) {
-            $conn->query("INSERT INTO usuarios(...) VALUES ($nombre, $pass)");
+    if (isset($_POST['Registro'])) {
+       $consulta = $conn->query("SELECT nombre FROM Usuarios WHERE nombre = '$name'"); 
+     if ($consulta -> rowCount() == 0) { 
+            $conn->query("INSERT INTO Usuarios (nombre, contrasena) VALUES ('$name', '$pass')");
             $_SESSION["Creada"] = "Se ha registrado correctamente";
             header("Location: info.php");
-        } else {
-            $_SESSION["Creada"] = "No se ha podido registrar";
-            header("Location: info.php");
-        }
+      } else { 
+             $_SESSION["Creada"] = "No se ha podido registrar"; 
+      header("Location: info.php"); 
+         } 
     }
 
-    if ($_POST["Login"] === true) {
+    if (isset($_POST["Login"])) {
 
-        $sql = $conn->query("SELECT * FROM usuario WHERE usuario = $nombre and pass= $pass");
-        if ($conn->exec($sql) == 0) {
+        $sql = $conn->query("SELECT * FROM Usuarios WHERE nombre = '$name' and contrasena = '$pass'");
+
+        if ($sql -> rowCount() == 0) {
             $_SESSION["Creada"] = "No has podido iniciar sesion";
-            header("Location: info.html");
+            header("Location: info.php");
         } else {
+            
             header("Location: ");
         }
-    }
+    } 
 } catch (PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
 }
+
 ?>
 
 

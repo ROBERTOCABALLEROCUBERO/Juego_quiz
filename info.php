@@ -12,10 +12,14 @@
 <body>
     <div id="caja">
 
-        <a href="index.html" id="enlace"> Volver a la página de inicio</a>
+        <a href="index.html" id="enlace">Volver a la página de inicio</a>
     </div>
     <script>
-        alert("<?php echo $_SESSION["Creada"]; ?>");
+        alert("<?php session_start(); 
+        echo $_SESSION["Creada"];
+        session_destroy();
+        ?>"); 
+        
     </script>
 </body>
 
