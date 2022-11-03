@@ -1,3 +1,7 @@
+<?php session_start(); 
+        $resul = $_SESSION['Creada'];
+       
+        ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,12 +19,12 @@
         <a href="index.html" id="enlace">Volver a la página de inicio</a>
     </div>
     <script>
-        alert("<?php session_start(); 
-        echo $_SESSION["Creada"];
-        session_destroy();
-        ?>"); 
+        alert("<?php echo $resul?>"); 
         
     </script>
 </body>
 
+<?php
+session_destroy();
+?>
 </html>

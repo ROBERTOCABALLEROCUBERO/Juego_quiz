@@ -29,13 +29,14 @@ try {
             $_SESSION["Creada"] = "No has podido iniciar sesion";
             header("Location: info.php");
         } else {
-            
-            header("Location: ");
+            $_SESSION["User"] = $name;
+            header("Location: menu.php");
         }
     } 
 } catch (PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
 }
+
 
 ?>
 
