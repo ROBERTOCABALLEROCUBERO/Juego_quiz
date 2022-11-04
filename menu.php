@@ -14,7 +14,7 @@ try {
     $datosarr = $datos->fetchAll(PDO::FETCH_ASSOC);
     $datospuntos = $conn->prepare($puntosmax);
     $datosarrpuntos = $datospuntos->fetchAll(PDO::FETCH_ASSOC);
-    foreach ($arrDatos as $row) {
+    foreach ($datosarr as $row) {
         $name = $row["nombre"];
         $image = $row["image"];
     }
@@ -51,7 +51,7 @@ try {
                 <a class="nav-link" href="#">Juego</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Lista de puntuaciones</a>
+                <a class="nav-link" href="lista_puntuacion.php">Lista de puntuaciones</a>
             </li>
         </ul>
 
