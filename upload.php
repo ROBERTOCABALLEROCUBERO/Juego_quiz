@@ -1,18 +1,29 @@
 <?php 
+require("conn.php");
+$nombreuser = $_SESSION["User"];
+$archivo = $_FILES["imagen"]["tmp_name"]; 
+ $tamanio = $_FILES["imagen"]["size"];
+ $tipo    = $_FILES["imagen"]["type"];
+ $nombre  = $_FILES["imagen"]["name"];
 
-$servername = "10.230.108.82";
-$username = "root";
-$password = "ASECg1PYysBg";
+ if ( $archivo != "none" )
+ 
+ {
 
-session_start();
-$nombre = $_SESSION["User"];
-try {
-    $conn = new PDO("mysql:host=$servername;dbname=Quiz", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $usuario = $conn->query("SELECT * FROM Usuarios WHERE nombre = '$nombre'");
-    
+    $fp = fopen($archivo, "rb");
+    $contenido = fread($fp, $tamanio);
+    $contenido = addslashes($contenido);
+    fclose($fp); 
 
-}catch(Exception $e){
-    echo "Connection failed: " . $e->getMessage();
-}
+    $qry = "INSERT INTO Usuarios () VALUES 
+            (0,'$nombre','$titulo','$contenido','$tipo')";
+
+$foto = $conn->prepare($qry);
+    $foto -> execute();
+    if($foto -> rowCount() > 0)
+      header("Location: menu.php");
+ }
+
+
+
 ?>

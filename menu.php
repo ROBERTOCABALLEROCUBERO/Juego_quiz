@@ -72,8 +72,8 @@ try {
         </ul>
         <div class="card-body">
             <form action="upload.php" method="post" enctype="multipart/form-data">
-                Select image to upload:
-                <input type="file" name="image" />
+                Sube una imagen.
+                <input type="file" name="imagen" />
                 <input type="submit" name="submit" value="UPLOAD" />
             </form>
         </div>
