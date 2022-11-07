@@ -8,8 +8,9 @@ $nombre = $_SESSION["User"];
 try {
     $conn = new PDO("mysql:host=$servername;dbname=Quiz", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $ranking = $conn->query("SELECT * FROM ‘Puntuaciones’ ORDER BY ‘puntuacion’ DESC LIMIT 5");
+    $ranking = $conn->query("SELECT * FROM 'Puntuaciones' ORDER BY 'puntuacion' DESC LIMIT 5");
     $datospuntos = $conn->prepare($ranking);
+    $datospuntos ->execute();
     $datosarrpuntos = $datospuntos->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
@@ -44,10 +45,10 @@ try {
         </thead>
         <?php
         echo "<tbody>";
-        foreach ($datosarr as $row) {
+        foreach ($datosarrpuntos as $row) {
             echo "<tr>";
-            echo "<td>" . $row["nombre_FK"] . "</td>";
-            echo "<td>" . $row["puntuacion"] . "</td>";
+            echo "<td>" . $row -> nombre_FK . "</td>";
+            echo "<td>" . $row -> puntuacion . "</td>";
             echo "</tr>";
         }
         echo "</tbody>";

@@ -11,15 +11,17 @@ try {
     $usuario = $conn->query("SELECT * FROM Usuarios WHERE nombre = '$nombre'");
     $puntosmax = $conn->query("SELECT max(puntuacion) FROM Puntuaciones WHERE nombre_FK = '$nombre'");
     $datos = $conn->prepare($usuario);
+    $datos -> execute();
     $datosarr = $datos->fetchAll(PDO::FETCH_ASSOC);
     $datospuntos = $conn->prepare($puntosmax);
+    $datospuntos -> execute();
     $datosarrpuntos = $datospuntos->fetchAll(PDO::FETCH_ASSOC);
     foreach ($datosarr as $row) {
-        $name = $row["nombre"];
-        $image = $row["image"];
+      
+      $image = $row -> image;
     }
     foreach ($datosarrpuntos as $row) {
-        $max_puntos = $row["puntuacion"];
+      $max_puntos = $row -> puntuacion;
     }
 } catch (PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
@@ -59,7 +61,7 @@ try {
     </nav>
 
     <div class="card" style="width: 18rem;" id="tarjeta">
-        <img src="<?php $image?>" class="card-img-top" alt="Foto de perfil">
+        <img src="<?php echo $image ?>" class="card-img-top" alt="Foto de perfil">
         <div class="card-body">
             <h5 class="card-title">Bienvenido al juego</h5>
             <p class="card-text">El juego es un quiz que todavía no he pensado</p>
@@ -69,7 +71,11 @@ try {
             <li class="list-group-item">Puntuacion máxima: <?php echo $max_puntos ?> </li>
         </ul>
         <div class="card-body">
-            <a href="#" class="card-link">Cambiar foto de perfil</a>
+            <form action="upload.php" method="post" enctype="multipart/form-data">
+                Select image to upload:
+                <input type="file" name="image" />
+                <input type="submit" name="submit" value="UPLOAD" />
+            </form>
         </div>
     </div>
 </body>
