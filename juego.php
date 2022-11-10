@@ -2,7 +2,11 @@
 session_start();
 include "conn.php";
 
-if (isset($_POST['respuestatextarea']) === true) {
+if ($_SESSION['contador'] > 10) {
+    header("Location:");
+}
+
+if (isset($_POST['text'])) {
 
     if ($_POST['respuestatextarea'] == $_SESSION['respuesta_bien']) {
         $_SESSION['puntuacion'] += 10;
@@ -13,6 +17,33 @@ if (isset($_POST['respuestatextarea']) === true) {
     if ($_POST['respuestatextarea'] == $_SESSION['respuesta_mal2']) {
         $_SESSION['contador'] += 0;
 
+    }
+}
+if (isset($_POST['Checkbox'])) {
+    foreach($_POST['check'] as $checked){
+        if ($checked == $_SESSION['respuesta_bien']) {
+            $_SESSION['puntuacion'] += 10;
+        }
+        if ($checked == $_SESSION['respuesta_mal1']) {
+            $_SESSION['contador'] -= 5;
+        }
+        if ($checked == $_SESSION['respuesta_mal2']) {
+            $_SESSION['contador'] -= 5;
+    
+        }
+    }
+
+}
+if (isset($_POST['radio'])) {
+
+    switch ($_POST['']) {
+        case 'value':
+            # code...
+            break;
+        
+        default:
+            # code...
+            break;
     }
 }
 
@@ -31,7 +62,7 @@ $preguntaarr = $pregunta->fetchAll(PDO::FETCH_ASSOC);
 
 foreach ($preguntaarr as $row) {
     $texto = $row->texto;
-    $tipo = $row->tipo;
+    $_SESSION['tipo'] = $row->tipo;
     $_SESSION['respuesta_bien'] = $row->respuesta_bien;
     $_SESSION['repuesta_mal1']  = $row->respuesta_mal1;
     $_SESSION['repuesta_mal2'] = $row->respuesta_mal2;
@@ -63,27 +94,47 @@ foreach ($preguntaarr as $row) {
         " method='post'>";
     echo "<div class='caja_test'>";
 
-    if ($tipo == "textarea") {
-        echo "<label>" . $texto . "</label>";
+    if ($_SESSION['tipo'] == "textarea") {
+        echo "<label>" . $texto . "</label>"."<br>";
         echo "<textarea name='respuestatextarea' rows='4' cols='50'></textarea>";
         echo "<br>";
-        echo "<input type='submit' value='Submit'>";
+        echo "<input type='submit' value='Submit' name = 'text'>";
     }
-    if ($tipo == "Checkbox") {
-        echo "<input type='checkbox' name='vehicle1' value='Bike'>";
-        echo "<label for='vehicle1'> I have a bike</label>"."<br>";
-        echo "<input type='checkbox' name='vehicle2' value='Car'>";
-        echo "<label for='vehicle2'> I have a car</label>"."<br>";
-        echo "<input type='checkbox' name='vehicle3' value='Boat'>";
-        echo "<label for='vehicle3'> I have a boat</label>"."<br>";
-        echo "<input type='submit' value='Submit'>";
+    if ($_SESSION['tipo'] == "Checkbox") {
+        echo "<label>" . $texto . "</label>"."<br>";
+        echo "<input type='checkbox' name='check[]' value='Bike'>";
+        echo "<label for='vehicle1'>".$_SESSION['respuesta_bien']."</label>"."<br>";
+        echo "<input type='checkbox' name='check[]' value='Car'>";
+        echo "<label for='vehicle2'>"  . $_SESSION['repuesta_mal1']. "</label>"."<br>";
+        echo "<input type='checkbox' name='check[]' value='Boat'>";
+        echo "<label for='vehicle3'>" .$_SESSION['repuesta_mal2']."</label>"."<br>";
+        echo "<input type='submit' value='Submit' name='Checkbox'>";
     }
-    if ($tipo == "RadioButton") {
-        
+    if ($_SESSION['tipo'] == "RadioButton") {
+        echo "<label>" . $texto . "</label>"."<br>";
+        echo "<input type='radio' id='age1' name='age' value='opcion1'>";
+    echo "<label for='age1'>".$_SESSION['']."</label>"."<br>";
+          echo"  <input type='radio' id='age2' name='age' value='opcion2'>";
+        echo "<label for='age2'>31 - 60</label>"."<br>";  
+        echo "<input type='radio' id='age3' name='age' value='opcion3'>";
+        echo "<label for='age3'>61 - 100</label>"."<br>";
+        echo"<input type='submit' value='Submit' name='radio'>";
     }
-    if ($tipo == "Button") {
+    if ($_SESSION['tipo'] == "Button") {
+
+
     }
-    if ($tipo == "Select") {
+    if ($_SESSION['tipo'] == "Select") {
+        echo "<label>" . $texto . "</label>"."<br>";
+        echo "<label for='cars'>Choose a car:</label>";
+        echo "<select id='cars' name='carlist' form='carform'>";
+        echo "<option value='volvo'>Volvo</option>";
+        echo "<option value='saab'>Saab</option>";
+        echo  "<option value='opel'>Opel</option>";
+        echo  "<option value='audi'>Audi</option>";
+        echo "</select>";
+        echo"<input type='submit' value='Submit'>";
+
     }
 
 
