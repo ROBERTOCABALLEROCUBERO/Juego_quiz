@@ -50,7 +50,7 @@ try {
 
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Juego</a>
+                <a class="nav-link" href="">Juego</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="lista_puntuacion.php">Lista de puntuaciones</a>
