@@ -9,4 +9,14 @@ foreach ($_SESSION['productos'] as $value) {
 
 }
 
+$q = array('pepito');
+$_SESSION['productos'] = $q;
+
+foreach ($_SESSION['productos'] as $value) {
+
+    echo "El valor es ". $value . "<br>"; 
+    
+
+}
+
 ?>

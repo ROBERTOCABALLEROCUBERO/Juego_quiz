@@ -1,20 +1,49 @@
 <?php
 session_start();
 include "conn.php";
-$consulta = $conn->query("SELECT * FROM Preguntas ORDER BY RAND() LIMIT 0,1");
+
+if (isset($_POST['respuestatextarea']) === true) {
+
+    if ($_POST['respuestatextarea'] == $_SESSION['respuesta_bien']) {
+        $_SESSION['puntuacion'] += 10;
+    }
+    if ($_POST['respuestatextarea'] == $_SESSION['respuesta_mal1']) {
+        $_SESSION['contador'] += 5;
+    }
+    if ($_POST['respuestatextarea'] == $_SESSION['respuesta_mal2']) {
+        $_SESSION['contador'] += 0;
+
+    }
+}
+
+
+
+
+
+
+$_SESSION['contador'] += 1;
+
+
+$consulta = $conn->query("SELECT * FROM Preguntas WHERE id = " . $_SESSION['contador'] . "");
 $pregunta = $conn->prepare($consulta);
 $pregunta->execute();
 $preguntaarr = $pregunta->fetchAll(PDO::FETCH_ASSOC);
 
 foreach ($preguntaarr as $row) {
-    $id = $row->id_pregunta;
     $texto = $row->texto;
     $tipo = $row->tipo;
-    $respuesta_bien = $row -> respuesta_bien;
-    $repuesta_mal1 = $row -> respuesta_mal1;
-    $repuesta_mal2 = $row -> respuesta_mal2;
-
+    $_SESSION['respuesta_bien'] = $row->respuesta_bien;
+    $_SESSION['repuesta_mal1']  = $row->respuesta_mal1;
+    $_SESSION['repuesta_mal2'] = $row->respuesta_mal2;
 }
+
+/*     $status = !array_diff($q, $_SESSION['array']) ? TRUE : FALSE; */
+
+
+
+
+
+
 //Crear sesion con array
 ?>
 
@@ -30,33 +59,39 @@ foreach ($preguntaarr as $row) {
 
 <body>
     <?php
-echo"<form action=".$_SERVER['PHP_SELF'].
-" method='post'>";
-echo "<div class='caja_test'>";
+    echo "<form action=" . $_SERVER['PHP_SELF'] .
+        " method='post'>";
+    echo "<div class='caja_test'>";
 
-if ($tipo == "textarea") {
+    if ($tipo == "textarea") {
+        echo "<label>" . $texto . "</label>";
+        echo "<textarea name='respuestatextarea' rows='4' cols='50'></textarea>";
+        echo "<br>";
+        echo "<input type='submit' value='Submit'>";
+    }
+    if ($tipo == "Checkbox") {
+        echo "<input type='checkbox' name='vehicle1' value='Bike'>";
+        echo "<label for='vehicle1'> I have a bike</label>"."<br>";
+        echo "<input type='checkbox' name='vehicle2' value='Car'>";
+        echo "<label for='vehicle2'> I have a car</label>"."<br>";
+        echo "<input type='checkbox' name='vehicle3' value='Boat'>";
+        echo "<label for='vehicle3'> I have a boat</label>"."<br>";
+        echo "<input type='submit' value='Submit'>";
+    }
+    if ($tipo == "RadioButton") {
+        
+    }
+    if ($tipo == "Button") {
+    }
+    if ($tipo == "Select") {
+    }
 
-    $_SESSION["textarea"]++;
-}
-if ($tipo == "Checkbox") {
-    $_SESSION["Checkbox"]++;
-}
-if ($tipo == "RadioButton") {
-    $_SESSION["RadioButton"]++;
-}
-if ($tipo == "Button") {
-    $_SESSION["Button"]++;
-}
-if ($tipo == "Select") {
-    $_SESSION["Select"]++ ;
-}
 
 
+    echo "</div>";
 
-echo "</div>";
-
-echo "</form>";
-?>
+    echo "</form>";
+    ?>
 
 
 </body>
