@@ -3,7 +3,7 @@ session_start();
 include "conn.php";
 
 if ($_SESSION['contador'] > 10) {
-    header("Location:");
+    header("Location: resultados.php");
 }
 
 if (isset($_POST['text'])) {
@@ -12,35 +12,37 @@ if (isset($_POST['text'])) {
         $_SESSION['puntuacion'] += 10;
     }
     if ($_POST['respuestatextarea'] == $_SESSION['respuesta_mal1']) {
-        $_SESSION['contador'] += 5;
+        $_SESSION['puntuacion'] += 5;
     }
     if ($_POST['respuestatextarea'] == $_SESSION['respuesta_mal2']) {
-        $_SESSION['contador'] += 0;
-
+        $_SESSION['puntuacion'] += 0;
     }
 }
 if (isset($_POST['Checkbox'])) {
-    foreach($_POST['check'] as $checked){
+    foreach ($_POST['check'] as $checked) {
         if ($checked == $_SESSION['respuesta_bien']) {
             $_SESSION['puntuacion'] += 10;
         }
         if ($checked == $_SESSION['respuesta_mal1']) {
-            $_SESSION['contador'] -= 5;
+            $_SESSION['puntuacion'] -= 5;
         }
         if ($checked == $_SESSION['respuesta_mal2']) {
-            $_SESSION['contador'] -= 5;
-    
+            $_SESSION['puntuacion'] -= 5;
         }
     }
-
 }
 if (isset($_POST['radio'])) {
 
-    switch ($_POST['']) {
-        case 'value':
-            # code...
+    switch ($_POST['res']) {
+        case 'opcion1':
+            $_SESSION['puntuacion'] += 10;
             break;
-        
+        case 'opcion2':
+            $_SESSION['puntuacion'] -= 5;
+            break;
+        case 'opcion3':
+            $_SESSION['puntuacion'] -= 5;
+            break;
         default:
             # code...
             break;
@@ -95,46 +97,43 @@ foreach ($preguntaarr as $row) {
     echo "<div class='caja_test'>";
 
     if ($_SESSION['tipo'] == "textarea") {
-        echo "<label>" . $texto . "</label>"."<br>";
+        echo "<label>" . $texto . "</label>" . "<br>";
         echo "<textarea name='respuestatextarea' rows='4' cols='50'></textarea>";
         echo "<br>";
         echo "<input type='submit' value='Submit' name = 'text'>";
     }
     if ($_SESSION['tipo'] == "Checkbox") {
-        echo "<label>" . $texto . "</label>"."<br>";
+        echo "<label>" . $texto . "</label>" . "<br>";
         echo "<input type='checkbox' name='check[]' value='Bike'>";
-        echo "<label for='vehicle1'>".$_SESSION['respuesta_bien']."</label>"."<br>";
+        echo "<label for='vehicle1'>" . $_SESSION['respuesta_bien'] . "</label>" . "<br>";
         echo "<input type='checkbox' name='check[]' value='Car'>";
-        echo "<label for='vehicle2'>"  . $_SESSION['repuesta_mal1']. "</label>"."<br>";
+        echo "<label for='vehicle2'>"  . $_SESSION['repuesta_mal1'] . "</label>" . "<br>";
         echo "<input type='checkbox' name='check[]' value='Boat'>";
-        echo "<label for='vehicle3'>" .$_SESSION['repuesta_mal2']."</label>"."<br>";
+        echo "<label for='vehicle3'>" . $_SESSION['repuesta_mal2'] . "</label>" . "<br>";
         echo "<input type='submit' value='Submit' name='Checkbox'>";
     }
     if ($_SESSION['tipo'] == "RadioButton") {
-        echo "<label>" . $texto . "</label>"."<br>";
-        echo "<input type='radio' id='age1' name='age' value='opcion1'>";
-    echo "<label for='age1'>".$_SESSION['']."</label>"."<br>";
-          echo"  <input type='radio' id='age2' name='age' value='opcion2'>";
-        echo "<label for='age2'>31 - 60</label>"."<br>";  
-        echo "<input type='radio' id='age3' name='age' value='opcion3'>";
-        echo "<label for='age3'>61 - 100</label>"."<br>";
-        echo"<input type='submit' value='Submit' name='radio'>";
+        echo "<label>" . $texto . "</label>" . "<br>";
+        echo "<input type='radio' id='age1' name='res' value='opcion1'>";
+        echo "<label for='respuesta1'>" . $_SESSION['respuesta_bien'] . "</label>" . "<br>";
+        echo "  <input type='radio' id='age2' name='res' value='opcion2'>";
+        echo "<label for='respuesta2'>". $_SESSION['repuesta_mal1'] ."</label>" . "<br>";
+        echo "<input type='radio' id='age3' name='res' value='opcion3'>";
+        echo "<label for='respuesta3'>". $_SESSION['repuesta_mal2'] ."</label>" . "<br>";
+        echo "<input type='submit' value='Submit' name='radio'>";
     }
     if ($_SESSION['tipo'] == "Button") {
-
-
     }
     if ($_SESSION['tipo'] == "Select") {
-        echo "<label>" . $texto . "</label>"."<br>";
-        echo "<label for='cars'>Choose a car:</label>";
-        echo "<select id='cars' name='carlist' form='carform'>";
+        echo "<label>" . $texto . "</label>" . "<br>";
+        echo "<label for='cars'>Dame la respuesta correcta</label>";
+        echo "<select id='cars' name='respuesta' form='carform'>";
         echo "<option value='volvo'>Volvo</option>";
         echo "<option value='saab'>Saab</option>";
         echo  "<option value='opel'>Opel</option>";
         echo  "<option value='audi'>Audi</option>";
         echo "</select>";
-        echo"<input type='submit' value='Submit'>";
-
+        echo "<input type='submit' value='Submit'>";
     }
 
 
