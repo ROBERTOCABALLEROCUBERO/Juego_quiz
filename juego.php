@@ -43,9 +43,27 @@ if (isset($_POST['radio'])) {
         case 'opcion3':
             $_SESSION['puntuacion'] -= 5;
             break;
-        default:
-            # code...
+            default :
+            $_SESSION['puntuacion'] -= 0;
+
+    }
+}
+
+if (isset($_POST['sel'])) {
+
+    switch ($_POST['res']) {
+        case 'opcion1':
+            $_SESSION['puntuacion'] += 10;
             break;
+        case 'opcion2':
+            $_SESSION['puntuacion'] -= 5;
+            break;
+        case 'opcion3':
+            $_SESSION['puntuacion'] -= 5;
+            break;
+            default :
+            $_SESSION['puntuacion'] -= 0;
+
     }
 }
 
@@ -123,17 +141,23 @@ foreach ($preguntaarr as $row) {
         echo "<input type='submit' value='Submit' name='radio'>";
     }
     if ($_SESSION['tipo'] == "Button") {
+        echo "<form action=" . $_SERVER['PHP_SELF'] .
+        " method='post'>";
+        echo "<label>" . $texto . "</label>" . "<br>";
+        echo "<input type='submit' value='". $_SESSION['respuesta_bien'] ." ' name='radio'>"."<br>";
+        echo "<input type='submit' value='". $_SESSION['respuesta_mal1'] ."' name='radio'>"."<br>";
+        echo "<input type='submit' value=". $_SESSION['repuesta_mal2'] ." name='radio'>"."<br>";
+
     }
     if ($_SESSION['tipo'] == "Select") {
         echo "<label>" . $texto . "</label>" . "<br>";
-        echo "<label for='cars'>Dame la respuesta correcta</label>";
-        echo "<select id='cars' name='respuesta' form='carform'>";
-        echo "<option value='volvo'>Volvo</option>";
-        echo "<option value='saab'>Saab</option>";
-        echo  "<option value='opel'>Opel</option>";
-        echo  "<option value='audi'>Audi</option>";
+        echo "<label for='preg'>Dame la respuesta correcta</label>";
+        echo "<select id='preg' name='res'>";
+        echo "<option value='opcion1'>Volvo</option>";
+        echo "<option value='opcion2'>Saab</option>";
+        echo  "<option value='opcion3'>Opel</option>";
         echo "</select>";
-        echo "<input type='submit' value='Submit'>";
+        echo "<input type='submit' value='Submit' name='sel'>";
     }
 
 
