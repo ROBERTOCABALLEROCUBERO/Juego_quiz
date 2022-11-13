@@ -1,7 +1,7 @@
 <?php
-$servername = "10.230.108.82";
+$servername = "localhos";
 $username = "root";
-$password = "ASECg1PYysBg";
+$password = "";
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=Quiz", $username, $password);

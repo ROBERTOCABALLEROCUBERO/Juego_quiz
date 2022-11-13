@@ -1,11 +1,8 @@
 <?php
-$servername = "10.230.108.82";
-$username = "root";
-$password = "ASECg1PYysBg";
+include 'conn.php';
 
 try {
-    $conn = new PDO("mysql:host=$servername;dbname=Quiz", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
     $name = $_POST["nombre"];
     $pass = $_POST["pass"];
     session_start();
@@ -16,7 +13,7 @@ try {
             $_SESSION["Creada"] = "Se ha registrado correctamente";
             header("Location: info.php");
       } else { 
-             $_SESSION["Creada"] = "No se ha podido registrar"; 
+             $_SESSION["Creada"] = "No se ha podido registrar. Nombre de usuario repetido"; 
       header("Location: info.php"); 
          } 
     }

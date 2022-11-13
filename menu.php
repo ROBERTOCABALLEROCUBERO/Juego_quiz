@@ -14,7 +14,7 @@ try {
     $datosarrpuntos = $datospuntos->fetchAll(PDO::FETCH_ASSOC);
     foreach ($datosarr as $row) {
       
-      $image = $row -> image;
+      $image = $row -> imagen;
     }
     foreach ($datosarrpuntos as $row) {
       $max_puntos = $row -> puntuacion;

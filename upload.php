@@ -1,28 +1,25 @@
 <?php 
 require("conn.php");
-$nombreuser = $_SESSION["User"];
-$archivo = $_FILES["imagen"]["tmp_name"]; 
- $tamanio = $_FILES["imagen"]["size"];
- $tipo    = $_FILES["imagen"]["type"];
- $nombre  = $_FILES["imagen"]["name"];
+session_start();
+$dir="Imagenes/";
+$nombreArchivo=$_FILES['foto']['name'];
 
- if ( $archivo != "none" )
- 
- {
+// Si no existe el directorio lo creas
+$ruta = $dir . $nombreArchivo;
 
-    $fp = fopen($archivo, "rb");
-    $contenido = fread($fp, $tamanio);
-    $contenido = addslashes($contenido);
-    fclose($fp); 
+// Ahora puedes mover la imagen al directorio
 
-    $qry = "INSERT INTO Usuarios () VALUES 
-            (0,'$nombre','$titulo','$contenido','$tipo')";
+if (!move_uploaded_file($_FILES['foto']['tmp_name'],$dir.$nombreArchivo)){
+    echo "error en la subida de la foto";
+    echo "<a href='../views/empleadoAltaFormulario.php'>Volver</a>";
+    exit;
+}
 
-$foto = $conn->prepare($qry);
-    $foto -> execute();
-    if($foto -> rowCount() > 0)
-      header("Location: menu.php");
- }
+$conn->query("UPDATE usuarios SET image='$ruta' WHERE nombre='".$_SESSION['User']."'") -> execute();
+
+header("Location: menu.php");
+
+
 
 
 
