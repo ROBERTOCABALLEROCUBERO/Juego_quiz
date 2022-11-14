@@ -3,7 +3,8 @@ session_start();
 require "conn.php";
 /* Creo un contador que ejerce de corredor de preguntas. */
 $contador = $_SESSION['contador'] += 1;
-if ($contador > 7) {
+if ($contador > 7){ 
+    $_SESSION['contador'] = 0;
     header("Location: resultados.php");
 }
 /* Al llegar a 7 he terminado el test */
