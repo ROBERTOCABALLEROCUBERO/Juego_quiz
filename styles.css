@@ -94,3 +94,24 @@ input:focus {
 .links a {
     margin-left: 4px;
 }
+
+.tabla {
+    color: white;
+    width: 30%;
+    margin: auto;
+    margin-top: 10%;
+    background-color: white;
+    z-index: 2;
+}
+
+
+/* tbody {
+    background-color: white;
+}
+
+.background {
+    width: 30%;
+    margin: auto;
+    margin-top: 10%;
+    background-color: white;
+} */

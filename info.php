@@ -1,7 +1,7 @@
-<?php session_start(); 
-        $resul = $_SESSION['Creada'];
-       
-        ?>
+<?php session_start();
+$resul = $_SESSION['Creada'];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,20 +11,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="styles.css">
+    <script>
+        alert("<?php echo $resul ?>");
+    </script>
 </head>
 
 <body>
     <div id="caja">
 
-        <a href="index.html" id="enlace">Volver a la página de inicio</a>
+        <a href="index.html" id="enlace" color='white'>Volver a la página de inicio</a>
     </div>
-    <script>
-        alert("<?php echo $resul?>"); 
-        
-    </script>
+
 </body>
 
 <?php
 session_destroy();
 ?>
+
 </html>

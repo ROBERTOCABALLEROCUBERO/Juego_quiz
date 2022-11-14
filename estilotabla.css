@@ -1,23 +1,17 @@
+.tabla {
+    color: white;
+    border: 1px solid;
+    width: 18rem;
+    margin: auto;
+    margin-top: 10%;
+    background-color: white;
+    z-index: 2;
+}
+
 body {
     background-image: url('https://getwallpapers.com/wallpaper/full/a/6/e/6082.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     height: 100%;
     font-family: 'Numans', sans-serif;
-}
-
-#tarjeta {
-    margin: auto;
-    margin-top: 10%;
-}
-
-#centrar {
-    text-align: center;
-}
-
-.background {
-    width: 30%;
-    margin: auto;
-    margin-top: 10%;
-    background-color: white;
 }

@@ -6,18 +6,12 @@ body {
     font-family: 'Numans', sans-serif;
 }
 
-#tarjeta {
-    margin: auto;
-    margin-top: 10%;
-}
-
-#centrar {
-    text-align: center;
-}
-
-.background {
-    width: 30%;
-    margin: auto;
-    margin-top: 10%;
+.caja_test {
     background-color: white;
+    margin: auto;
+    margin-top: 10%;
+}
+
+form {
+    text-align: center;
 }
