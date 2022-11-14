@@ -9,3 +9,4 @@ try {
 } catch (Exception $e) {
     echo "Connection failed: " . $e->getMessage();
 }
+//Creo la conexión y hago que no se muestren los errores notice y warning.

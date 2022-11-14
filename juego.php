@@ -1,13 +1,12 @@
 <?php
 session_start();
 require "conn.php";
-error_reporting(0);
+/* Creo un contador que ejerce de corredor de preguntas. */
 $contador = $_SESSION['contador'] += 1;
 if ($contador > 7) {
-    $_SESSION['contador'] = 0;
     header("Location: resultados.php");
 }
-
+/* Al llegar a 7 he terminado el test */
 if (isset($_POST['text'])) {
 
     if ($_POST['respuestatextarea'] == $_SESSION['respuesta_bien']) {
@@ -64,12 +63,7 @@ if (isset($_POST['boton2'])) {
     $_SESSION['puntuacion'] -= 5;
 }
 
-
-
-
-
-
-
+/* Compruebo todas las posibles respuestas a través de los formularios. */
 
 $consulta = $conn->query("SELECT * FROM Preguntas WHERE id ='$contador'");
 $preguntaarr = $consulta->fetchAll(PDO::FETCH_ASSOC);
@@ -81,14 +75,9 @@ foreach ($preguntaarr as $row) {
     $_SESSION['repuesta_mal1']  = $row['respuesta_mal1'];
     $_SESSION['repuesta_mal2'] = $row['respuesta_mal2'];
 }
-
-/*     $status = !array_diff($q, $_SESSION['array']) ? TRUE : FALSE; */
-
-
-
-
-
-//Crear sesion con array
+/* Saco toda la informacion de las preguntas para posteriormente clasificarlas. Existen errores al usar el alfabeto
+español, pero no he conseguido arreglarlo y no se visualizan bien las letras. */
+/*     $status = !array_diff($q, $_SESSION['array']) ? TRUE : FALSE;  Comparador de arrays sin uso*/
 ?>
 
 <!DOCTYPE html>
@@ -102,6 +91,7 @@ foreach ($preguntaarr as $row) {
     <link rel="stylesheet" href="juego.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <!-- Importo el bootstrap -->
 </head>
 
 <body>
@@ -110,14 +100,14 @@ foreach ($preguntaarr as $row) {
         <a class="navbar-brand" href="cerrarsesion.php">Cerrar sesion</a>
 
     </nav>
-
+<!-- Navbar con bootstrap -->
     <form action=" <?php htmlspecialchars($_SERVER['PHP_SELF']) ?> " method='post'>
         <div class='caja_test' style='width: 40rem;'>
             <p><?php echo $_SESSION['respuesta_mal1']; ?></p>
             <p>Puntuacion: <?php echo $_SESSION['puntuacion'] ?></p>
             <?php
 
-
+/* Clasificacion de las preguntas por tipos */
             if ($_SESSION['tipo'] == "textarea") {
                 echo "<label>" . $texto . "</label>" . "<br>";
                 echo "<textarea name='respuestatextarea' rows='4' cols='50'></textarea>";

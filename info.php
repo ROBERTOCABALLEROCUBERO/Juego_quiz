@@ -15,7 +15,7 @@ $resul = $_SESSION['Creada'];
         alert("<?php echo $resul ?>");
     </script>
 </head>
-
+<!-- Confirmación del registro. No uso header por el javascript por lo que pongo un link sin darle estilo. -->
 <body>
     <div id="caja">
 

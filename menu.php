@@ -1,10 +1,9 @@
 <?php
-include "conn.php";
-error_reporting(0);
+require "conn.php";
 session_start();
 $nombre = $_SESSION["User"];
 
-
+/* Extraigo datos para una tarjeta de usuario aunque uso una sesión en la que he guardado anteriormente el nombre.*/
     $usuario = $conn->query("SELECT * FROM Usuarios WHERE nombre = '$nombre'");
     $puntosmax = $conn->query("SELECT MAX(puntuacion) AS Maxima FROM Puntuaciones WHERE nombre_FK = '$nombre'");  
     $datosarr = $usuario->fetchAll(PDO::FETCH_ASSOC);
@@ -32,7 +31,7 @@ $nombre = $_SESSION["User"];
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Menú</a>
+        <a class="navbar-brand" href="menu.php">Menú</a>
 
 
         <ul class="navbar-nav mr-auto">
@@ -67,6 +66,7 @@ $nombre = $_SESSION["User"];
             </form>
         </div>
     </div>
+    <!-- Barra de navegación y tarjeta de usuario. -->
 </body>
 
 </html>

@@ -1,7 +1,6 @@
 <?php
 
 
-try {
     require 'conn.php';
     $name = $_POST["nombre"];
     $pass = $_POST["pass"];
@@ -17,6 +16,8 @@ try {
       header("Location: info.php"); 
          } 
     }
+    /* Uso las sesiones para guardar la información de los mensajes según el registro, no tiene seguridad y se pueden
+    hacer inyecciones sql, pero bueno se puede arreglar en posteriores proyectos. */
 
     if (isset($_POST["Login"])) {
 
@@ -30,9 +31,7 @@ try {
             header("Location: menu.php");
         }
     } 
-} catch (PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
-}
+
 
 
 ?>

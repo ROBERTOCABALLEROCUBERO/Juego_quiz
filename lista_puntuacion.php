@@ -4,14 +4,10 @@ require 'conn.php';
 session_start();
 $nombre = $_SESSION["User"];
 
-    $ranking = $conn->query ("SELECT * FROM Puntuaciones ORDER BY puntuacion DESC LIMIT 5");
-    $datosarrpuntos = $ranking->fetchAll(PDO::FETCH_ASSOC);
-
-
-
+$ranking = $conn->query("SELECT * FROM Puntuaciones ORDER BY puntuacion DESC LIMIT 5");
+$datosarrpuntos = $ranking->fetchAll(PDO::FETCH_ASSOC);
+/* Adquiero la informacion y la ordeno por puntuación. */
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,7 +22,7 @@ $nombre = $_SESSION["User"];
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="menu.php">Menú</a>
 
 
@@ -43,7 +39,7 @@ $nombre = $_SESSION["User"];
         </ul>
 
     </nav>
-
+<!-- Barra de navegacion -->
     <table class="table tabla">
         <thead>
             <tr>
@@ -65,7 +61,7 @@ $nombre = $_SESSION["User"];
 
 
         ?>
-
+<!-- Tabla con bootstrap donde imprimo los datos de manera dinámica. -->
     </table>
 
 
