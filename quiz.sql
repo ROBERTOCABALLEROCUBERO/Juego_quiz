@@ -114,7 +114,7 @@ INSERT INTO `usuarios` (`nombre`, `contrasena`, `imagen`) VALUES
 ('jose', 'nuncase', 'Imagenes/predeterminado.webp'),
 ('juan', 'juan123', 'Imagenes/predeterminado.webp'),
 ('pepito', '1234', 'Imagenes/predeterminado.webp'),
-('roberto', 'gambita', 'Imagenes/goku.jpg'),
+('roberto', 'rober', 'Imagenes/goku.jpg'),
 ('Ruby', 'jamon', 'Imagenes/predeterminado.webp');
 
 --
