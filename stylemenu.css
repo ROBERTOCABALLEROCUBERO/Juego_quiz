@@ -6,9 +6,11 @@ body {
     font-family: 'Numans', sans-serif;
 }
 
-#tarjeta{
+#tarjeta {
+    margin: auto;
+    margin-top: 10%;
+}
 
-margin: auto;
-margin-top: 10%;
-
+div {
+    background-color: white;
 }

@@ -1,8 +1,10 @@
 <?php
 session_start();
-include "conn.php";
+require "conn.php";
 
-if ($_SESSION['contador'] > 10) {
+$contador = $_SESSION['contador'] += 1;
+echo $contador;
+if ($contador> 7) {
     header("Location: resultados.php");
 }
 
@@ -72,24 +74,20 @@ if (isset($_POST['sel'])) {
 
 
 
-$_SESSION['contador'] += 1;
 
 
-$consulta = $conn->query("SELECT * FROM Preguntas WHERE id = " . $_SESSION['contador'] . "");
-$pregunta = $conn->prepare($consulta);
-$pregunta->execute();
-$preguntaarr = $pregunta->fetchAll(PDO::FETCH_ASSOC);
+$consulta = $conn->query("SELECT * FROM Preguntas WHERE id ='$contador'");
+$preguntaarr = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
-foreach ($preguntaarr as $row) {
-    $texto = $row->texto;
-    $_SESSION['tipo'] = $row->tipo;
-    $_SESSION['respuesta_bien'] = $row->respuesta_bien;
-    $_SESSION['repuesta_mal1']  = $row->respuesta_mal1;
-    $_SESSION['repuesta_mal2'] = $row->respuesta_mal2;
+foreach ($preguntaarr as &$row) {
+    $texto = $row['texto'];
+    $_SESSION['tipo'] = $row['tipo'];
+    $_SESSION['respuesta_bien'] = $row['respuesta_bien'];
+    $_SESSION['repuesta_mal1']  = $row['respuesta_mal1'];
+    $_SESSION['repuesta_mal2'] = $row['respuesta_mal2'];
 }
 
 /*     $status = !array_diff($q, $_SESSION['array']) ? TRUE : FALSE; */
-
 
 
 
@@ -106,13 +104,34 @@ foreach ($preguntaarr as $row) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="stylemenu.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 </head>
 
 <body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Menú</a>
+
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="juego.php">Juego</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="lista_puntuacion.php">Lista de puntuaciones</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="cerrarsesion.php"> Cerrar sesion</a>
+            </li>
+        </ul>
+
+    </nav>
     <?php
     echo "<form action=" . $_SERVER['PHP_SELF'] .
         " method='post'>";
-    echo "<div class='caja_test'>";
+    echo "<div class='caja_test' style='width: 40rem;'>";
 
     if ($_SESSION['tipo'] == "textarea") {
         echo "<label>" . $texto . "</label>" . "<br>";
@@ -161,12 +180,10 @@ foreach ($preguntaarr as $row) {
     }
 
 
-
     echo "</div>";
 
     echo "</form>";
     ?>
-
 
 </body>
 

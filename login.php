@@ -1,8 +1,8 @@
 <?php
-include 'conn.php';
+
 
 try {
-
+    require 'conn.php';
     $name = $_POST["nombre"];
     $pass = $_POST["pass"];
     session_start();
