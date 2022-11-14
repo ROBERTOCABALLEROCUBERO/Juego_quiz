@@ -1,6 +1,13 @@
 <?php 
 require("conn.php");
 session_start();
+$nombre = $_SESSION["User"];
+$borrar = $conn->query("SELECT imagen AS borrarlink FROM usuarios WHERE nombre = '$nombre'");
+$borrarimg = $borrar->fetch(PDO::FETCH_ASSOC);
+if (!($borrarimg['borrarlink'] == "Imagenes/predeterminado.webp")){
+
+unlink($borrarimg['borrarlink']);
+}
 $dir="Imagenes/";
 $nombreArchivo=$_FILES['foto']['name'];
 
@@ -11,14 +18,13 @@ $ruta = $dir . $nombreArchivo;
 
 if (!move_uploaded_file($_FILES['foto']['tmp_name'],$dir.$nombreArchivo)){
     echo "error en la subida de la foto";
-    echo "<a href='../views/empleadoAltaFormulario.php'>Volver</a>";
+    echo "<a href='menu.php'>Volver</a>";
     exit;
 }
 
-$conn->query("UPDATE usuarios SET image='$ruta' WHERE nombre='".$_SESSION['User']."'") -> execute();
+$conn->query("UPDATE usuarios SET imagen='$ruta' WHERE nombre='".$_SESSION['User']."'") -> execute();
 
-header("Location: menu.php");
-
+ header("Location: menu.php"); 
 
 
 
